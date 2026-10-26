@@ -4,7 +4,7 @@
 
 // демо-возможность: эхо
 static void *echo_fn(void *arg) {
-    vga_printf("  [echo cell] получил аргумент 0x%x\n", (uint32_t)(uintptr_t)arg);
+    vga_printf("  [echo cell] get arg  0x%x\n", (uint32_t)(uintptr_t)arg);
     return arg;
 }
 

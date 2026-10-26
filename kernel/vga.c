@@ -2,8 +2,8 @@
 #include "vga.h"
 #include <stdarg.h>
 
-#define VGA_W 80
-#define VGA_H 25
+#define VGA_WIDTH  80
+#define VGA_HEIGHT 25
 static volatile uint16_t *const VGA = (uint16_t*)0xB8000;
 static int row = 0, col = 0;
 static uint8_t color = 0x0F;
