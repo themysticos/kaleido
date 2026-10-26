@@ -1,0 +1,11 @@
+# build artifacts
+*.o
+*.elf
+*.iso
+isodir/
+
+# editor
+*.swp
+*~
+.vscode/
+.idea/

@@ -1,0 +1,39 @@
+name: Build KaleidoKernel ISO
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:      # ручной запуск из вкладки Actions
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            nasm \
+            xorriso \
+            grub-pc-bin \
+            grub-common \
+            mtools
+
+      - name: Build kernel.elf
+        run: make kernel.elf
+
+      - name: Build ISO
+        run: make iso
+
+      - name: Upload ISO artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaleido-iso
+          path: kaleido.iso
+          retention-days: 30
