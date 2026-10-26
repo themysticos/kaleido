@@ -15,15 +15,15 @@ void vga_set_color(uint8_t fg, uint8_t bg) {
 }
 
 void vga_clear(void) {
-    for (int i = 0; i < VGA_W * VGA_H; i++) VGA[i] = entry(' ');
+    for (int i = 0; i < VGA_WIDTH * VGA_HEIGHT; i++) VGA[i] = entry(' ');
     row = col = 0;
 }
 
 static void scroll(void) {
-    if (row < VGA_H) return;
-    for (int i = 0; i < (VGA_H - 1) * VGA_W; i++) VGA[i] = VGA[i + VGA_W];
-    for (int i = (VGA_H - 1) * VGA_W; i < VGA_H * VGA_W; i++) VGA[i] = entry(' ');
-    row = VGA_H - 1;
+    if (row < VGA_HEIGHT) return;
+    for (int i = 0; i < (VGA_HEIGHT - 1) * VGA_WIDTH; i++) VGA[i] = VGA[i + VGA_WIDTH];
+    for (int i = (VGA_HEIGHT - 1) * VGA_WIDTH; i < VGA_HEIGHT * VGA_WIDTH; i++) VGA[i] = entry(' ');
+    row = VGA_HEIGHT - 1;
 }
 
 void vga_putc(char c) {
@@ -31,8 +31,8 @@ void vga_putc(char c) {
     else if (c == '\r') { col = 0; }
     else if (c == '\t') { col = (col + 4) & ~3; }
     else {
-        VGA[row * VGA_W + col] = entry(c);
-        if (++col >= VGA_W) { col = 0; row++; }
+        VGA[row * VGA_WIDTH + col] = entry(c);
+        if (++col >= VGA_WIDTH) { col = 0; row++; }
     }
     scroll();
 }
